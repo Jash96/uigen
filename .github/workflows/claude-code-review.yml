@@ -1,0 +1,62 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: true
+        type: number
+
+jobs:
+  review:
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && !github.event.pull_request.draft)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Get PR info
+        id: pr_info
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "pr_number=${{ inputs.pr_number }}" >> $GITHUB_OUTPUT
+          else
+            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Claude Code Review
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          direct_prompt: |
+            Review PR #${{ steps.pr_info.outputs.pr_number }}.
+
+            Use the GitHub API to:
+            1. Get the PR diff and details
+            2. Review the code changes thoroughly
+            3. Look for bugs, security issues, performance problems, and code quality concerns
+            4. Post a detailed review comment on the PR
+
+            Be constructive and specific in your feedback. Focus on:
+            - Correctness and potential bugs
+            - Security vulnerabilities
+            - Performance implications
+            - Code readability and maintainability
+            - Adherence to project conventions
+
+            If the code looks good, say so! Don't nitpick for the sake of it.
+          timeout_minutes: 30

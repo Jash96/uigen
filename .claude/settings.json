@@ -8,7 +8,22 @@
       "Bash(npm install)",
       "Bash(npx vitest run src/components/chat/__tests__/MessageList.test.tsx)",
       "Bash(git init)",
-      "Bash(git add .gitignore CLAUDE.md README.md components.json next.config.ts node-compat.cjs package-lock.json package.json postcss.config.mjs prisma/ src/ tsconfig.json vitest.config.mts .eslintrc.json .claude/)"
+      "Bash(git add .gitignore CLAUDE.md README.md components.json next.config.ts node-compat.cjs package-lock.json package.json postcss.config.mjs prisma/ src/ tsconfig.json vitest.config.mts .eslintrc.json .claude/)",
+      "Bash(git commit:*)",
+      "Bash(xargs grep:*)",
+      "Read(//c/Users/Jashan/**)",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" repo view Jash96/uigen --json name,visibility,defaultBranchRef)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" api repos/Jash96/uigen/actions/permissions)",
+      "Bash(git push:*)",
+      "Bash(\"/c/Program Files/GitHub CLI/gh.exe\" pr list --repo Jash96/uigen)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:api.github.com)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Jashan"
     ]
   }
 }
