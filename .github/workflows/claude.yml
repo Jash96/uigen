@@ -33,7 +33,8 @@ jobs:
       - name: Project Setup
         run: |
           npm run setup
-          npm run dev:daemon        
+          npx playwright install chromium
+          npm run dev:daemon
 
       - name: Run Claude Code
         id: claude
@@ -61,4 +62,4 @@ jobs:
                 }
               }
             }
-          allowed_tools: "Bash(npm:*),Bash(sqlite3:*),mcp__playwright__browser_snapshot,mcp__playwright__click,mcp__playwright__fill,mcp__playwright__goto,mcp__playwright__screenshot"
+          allowed_tools: "Bash(npm:*),Bash(sqlite3:*),mcp__playwright__browser_snapshot,mcp__playwright__browser_click,mcp__playwright__browser_fill,mcp__playwright__browser_navigate,mcp__playwright__browser_screenshot"
